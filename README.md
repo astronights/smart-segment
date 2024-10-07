@@ -44,7 +44,7 @@ This example shows how to use the `find_optimal_bins` function to find the optim
 
 ```python
 import pandas as pd
-from src.segmentation import find_optimal_bins
+from smart_segment.segmentation import find_optimal_bins
 
 # Example data
 data = {'propensity': [0.1, 0.2, 0.3, 0.4, 0.5],

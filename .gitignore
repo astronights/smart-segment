@@ -1,6 +1,8 @@
 # Python Build
 __pycache__
 *.egg-info
+build/
+dist/
 
 # Jupyter
 *.ipynb
