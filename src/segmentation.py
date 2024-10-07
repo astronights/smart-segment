@@ -40,8 +40,10 @@ def find_optimal_bins(
     max_revenue = -np.inf
     best_n_bins = 0
 
+    pos_bins = min(len(propensities), max_bins) + 1
+
     # Iterate over the number of bins
-    for n_bins in range(2, max_bins + 1):
+    for n_bins in range(2, pos_bins):
         # Optimize the cutoffs for the current number of bins
         if global_search:
             cutoffs = optimize_cutoffs_with_global_search(n_bins, propensities, predictions, penalty_factor, revenue_fn, cost_fn)

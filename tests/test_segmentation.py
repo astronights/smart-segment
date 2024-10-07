@@ -9,7 +9,7 @@ predictions = np.array([1, 0, 1, 1, 0, 1, 0, 1, 0, 1])
 
 def test_find_optimal_bins():
     # Test default behavior with a reasonable number of bins
-    n_bins, cutoffs, max_revenue = find_optimal_bins(propensities, predictions)
+    n_bins, cutoffs, max_revenue = find_optimal_bins(propensities, predictions, revenue_fn=lambda ix: 10**ix, cost_fn=lambda ix: 0)
     assert n_bins > 0, "Number of bins should be greater than 0"
     assert len(cutoffs) == n_bins + 1, "Cutoffs length should be equal to n_bins + 1"
     assert max_revenue >= 0, "Max revenue should not be negative"
