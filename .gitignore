@@ -1,0 +1,7 @@
+# Python
+segenv/
+__pycache__
+.ipynb_checkpoints
+
+# Miscellaneous
+notes.txt

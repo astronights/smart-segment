@@ -1,0 +1,13 @@
+# Optimization Modules
+numpy
+scipy
+
+# Tests
+pytest
+
+# Examples
+pandas
+matplotlib
+
+jupyter
+notebook
