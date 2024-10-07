@@ -4,11 +4,3 @@ setuptools
 # Optimization Modules
 numpy
 scipy
-
-# Tests
-pytest
-
-# Jupyter
-ipykernel
-jupyter
-notebook
