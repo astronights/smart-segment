@@ -33,39 +33,39 @@ This segmentation tool is particularly useful for business intelligence teams se
 ## Installation
 
 You can install the package from the PyPI repository
-
-    ```bash
-    pip install smart-segment
-    ```
+    
+```bash
+pip install smart-segment
+```
 
 ## Usage
 
 This example shows how to use the `find_optimal_bins` function to find the optimal segmentation for a marketing campaign:
 
-    ```python
-    import pandas as pd
-    from src.segmentation import find_optimal_bins
+```python
+import pandas as pd
+from src.segmentation import find_optimal_bins
 
-    # Example data
-    data = {'propensity': [0.1, 0.2, 0.3, 0.4, 0.5],
-            'y': [0, 1, 1, 0, 1]}
+# Example data
+data = {'propensity': [0.1, 0.2, 0.3, 0.4, 0.5],
+        'y': [0, 1, 1, 0, 1]}
 
-    df = pd.DataFrame(data)
+df = pd.DataFrame(data)
 
-    # Find optimal bins with custom revenue and cost functions
-    result = find_optimal_bins(df['propensity'], df['y'], n_bins=10, 
-                            revenue_fn=lambda ix: 30,
-                            cost_fn=lambda ix: 2 * ix,
-                            min_samples=10, global_search=True)
-    best_n_bins, best_cutoffs, max_revenue = result
+# Find optimal bins with custom revenue and cost functions
+result = find_optimal_bins(df['propensity'], df['y'], n_bins=10, 
+                        revenue_fn=lambda ix: 30,
+                        cost_fn=lambda ix: 2 * ix,
+                        min_samples=10, global_search=True)
+best_n_bins, best_cutoffs, max_revenue = result
 
-    # Apply the segmentation to the DataFrame
-    df['optim_global'] = pd.cut(df['propensity'], best_cutoffs, include_lowest=False, duplicates='drop')
+# Apply the segmentation to the DataFrame
+df['optim_global'] = pd.cut(df['propensity'], best_cutoffs, include_lowest=False, duplicates='drop')
 
-    print(f"Best number of bins: {best_n_bins}")
-    print(f"Best cutoffs: {best_cutoffs}")
-    print(f"Maximum Revenue: {max_revenue}")
-    ```
+print(f"Best number of bins: {best_n_bins}")
+print(f"Best cutoffs: {best_cutoffs}")
+print(f"Maximum Revenue: {max_revenue}")
+```
 
 ## Repository
 
@@ -75,23 +75,23 @@ The repository is available on Github if you would like to install the latest ve
 
 The repository is organized as follows:
 
-    
-    ├── src
-    │   ├── segmentation.py         # Main segmentation logic
-    │   ├── optimization.py         # Optimization methods for cutoffs
-    │   └── utils.py                # Utility functions for calculating revenue, merging bins
-    ├── tests
-    │   ├── test_segmentation.py    # Unit tests for segmentation logic
-    │   ├── test_optimization.py    # Unit tests for optimization methods
-    │   └── test_utils.py           # Unit tests for utility functions
-    ├── examples
-    │   ├── Example.html            # Example of Jupyter notebook
-    │   ├── segments.csv            # Example of results across various methods
-    │   └── example.py              # Example Python file showcasing usage
-    ├── requirements.txt            # Required Python packages
-    ├── setup.py                    # Installation script for the package
-    └── README.md                   # This file
-    
+```bash
+├── src
+│   ├── segmentation.py         # Main segmentation logic
+│   ├── optimization.py         # Optimization methods for cutoffs
+│   └── utils.py                # Utility functions for calculating revenue, merging bins
+├── tests
+│   ├── test_segmentation.py    # Unit tests for segmentation logic
+│   ├── test_optimization.py    # Unit tests for optimization methods
+│   └── test_utils.py           # Unit tests for utility functions
+├── examples
+│   ├── Example.html            # Example of Jupyter notebook
+│   ├── segments.csv            # Example of results across various methods
+│   └── example.py              # Example Python file showcasing usage
+├── requirements.txt            # Required Python packages
+├── setup.py                    # Installation script for the package
+└── README.md                   # This file
+```
 
 ### Installation
 
