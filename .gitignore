@@ -1,7 +1,13 @@
-# Python
-segenv/
+# Python Build
 __pycache__
+*.egg-info
+
+# Jupyter
+*.ipynb
 .ipynb_checkpoints
+
+# Virtual Environment
+segenv/
 
 # Miscellaneous
 notes.txt

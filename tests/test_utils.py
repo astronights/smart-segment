@@ -1,7 +1,6 @@
-import pytest
 import numpy as np
 
-from src.utils import (
+from smart_segment.utils import (
     default_revenue_function,
     default_cost_function,
     calculate_total_revenue_with_penalty,

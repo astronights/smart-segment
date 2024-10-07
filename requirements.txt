@@ -1,3 +1,6 @@
+# Python
+setuptools
+
 # Optimization Modules
 numpy
 scipy
@@ -5,9 +8,7 @@ scipy
 # Tests
 pytest
 
-# Examples
-pandas
-matplotlib
-
+# Jupyter
+ipykernel
 jupyter
 notebook

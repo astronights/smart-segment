@@ -1,7 +1,7 @@
 import pytest
 import numpy as np
 
-from src.optimization import (
+from smart_segment.optimization import (
     optimize_cutoffs_with_quantiles,
     optimize_cutoffs_with_global_search,
 )
