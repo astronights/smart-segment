@@ -7,7 +7,7 @@ long_description = (this_directory / "README.md").read_text()
 
 setup(
     name='smart-segment',
-    version='0.1.1',
+    version='0.1.2',
     author='Shubhankar Agrawal',
     author_email='shubhankar.a31@gmail.com',
     description='An optimization-based customer segmentation tool for business intelligence',
