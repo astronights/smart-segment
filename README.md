@@ -92,6 +92,10 @@ The configurable parameters are as follows:
 
 Tests were conducted to compare the performance of various customer segmentation strategies using the generated propensity groups. 
 
+The peformances of this optimized method are compared with the conventional methods used:
+
+- **Uniform**: Implemented with `pd.cut`
+- **Percentile**: Implemented with `pd.qcut`
 
 ### Key Statistics
 
@@ -131,15 +135,15 @@ Additionally, the **Revenue per Customer** is indicated above each bar in the ba
 
 **Optimization Algorithm**
 
-![Optimized Split](examples/analyses/optimized_plot.png)
+![Optimized Split](https://github.com/astronights/smart-segment/blob/main/examples/analyses/optimized_plot.png)
 *Optimized Segmentation Results*
 
 **Uniform and Percentile Based old methods**
 
-![Uniform Split](examples/analyses/uniform_plot.png)
+![Uniform Split](https://github.com/astronights/smart-segment/blob/main/examples/analyses/uniform_plot.png)
 *Uniform Segmentation Results*
 
-![Percentile Split](examples/analyses/percentile_plot.png)
+![Percentile Split](https://github.com/astronights/smart-segment/blob/main/examples/analyses/percentile_plot.png)
 *Percentile Segmentation Results*
 
 This novel optimization method results in a more effective targeting strategy, enabling businesses to maximize their revenue potential while ensuring that high-value customers are efficiently identified. By balancing customer volume with targeted conversion rates, the optimized approach surpasses traditional methods, yielding superior results in both overall conversions and revenue generation.
@@ -153,27 +157,27 @@ The repository is available on Github if you would like to install the latest ve
 The repository is organized as follows:
 
 ```bash
-├── smart_segment
-│   ├── segmentation.py          # Main logic for customer segmentation
-│   ├── optimization.py          # Optimization methods for determining cutoffs
-│   └── utils.py                 # Utility functions for revenue calculation and bin merging
-├── tests
-│   ├── test_segmentation.py     # Unit tests for the segmentation logic
-│   ├── test_optimization.py     # Unit tests for the optimization methods
-│   └── test_utils.py            # Unit tests for utility functions
-├── examples
-│   ├── Example.html             # HTML representation of a Jupyter notebook example
-│   ├── segments.csv             # Sample results across various segmentation methods
-│   ├── analyses
-│   │   ├── uniform_plot.png     # Conversion plot for Uniform splits
-│   │   ├── uniform_stats.csv    # Conversion statistics for Uniform splits
-│   │   ├── percentile_plot.png  # Conversion plot for Percentile splits
-│   │   ├── percentile_stats.csv # Conversion statistics for Percentile splits
-│   │   ├── optimized_plot.png   # Conversion plot for Optimized splits
-│   │   └── optimized_stats.csv  # Conversion statistics for Optimized splits
-├── requirements.txt             # List of required Python packages
-├── setup.py                     # Installation script for the package
-└── README.md                    # Documentation file for the package
+smart_segment/
+    segmentation.py          # Main logic for customer segmentation
+    optimization.py          # Optimization methods for determining cutoffs
+    utils.py                 # Utility functions for revenue calculation and bin merging
+tests/
+    test_segmentation.py     # Unit tests for the segmentation logic
+    test_optimization.py     # Unit tests for the optimization methods
+    test_utils.py            # Unit tests for utility functions
+examples/
+    Example.html             # HTML representation of a Jupyter notebook example
+    segments.csv             # Sample results across various segmentation methods
+    analyses/
+        uniform_plot.png     # Conversion plot for Uniform splits
+        uniform_stats.csv    # Conversion statistics for Uniform splits
+        percentile_plot.png  # Conversion plot for Percentile splits
+        percentile_stats.csv # Conversion statistics for Percentile splits
+        optimized_plot.png   # Conversion plot for Optimized splits
+        optimized_stats.csv  # Conversion statistics for Optimized splits
+requirements.txt             # List of required Python packages
+setup.py                     # Installation script for the package
+README.md                    # Documentation file for the package
 ```
 
 **NOTE**: The plots here are for the Global optimization function. The Quantile based optimization is not included as it is identifical to the Percentile split with the same number of bins.

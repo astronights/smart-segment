@@ -7,7 +7,7 @@ long_description = (this_directory / "README.md").read_text()
 
 setup(
     name='smart-segment',
-    version='0.1.0',
+    version='0.1.1',
     author='Shubhankar Agrawal',
     author_email='shubhankar.a31@gmail.com',
     description='An optimization-based customer segmentation tool for business intelligence',
@@ -27,8 +27,20 @@ setup(
     license_files=('LICENSE',),  # Ensure your LICENSE file is included
     classifiers=[
         'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3.11',
+        'Programming Language :: Python :: 3.12',
+        'Intended Audience :: Developers',
+        'Intended Audience :: Science/Research',
+        'Intended Audience :: End Users/Desktop',
+        'Topic :: Software Development :: Libraries',
+        'Topic :: Software Development :: Libraries :: Python Modules',
+        'Topic :: Scientific/Engineering',
+        'Topic :: Utilities',
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
     ],
