@@ -45,7 +45,7 @@ This example shows how to use the `find_optimal_bins` function to find the optim
 ```python
 import numpy as np
 import pandas as pd
-from smart_segment.segmentation import find_optimal_bins
+from smart_segment import find_optimal_bins
 
 # Example data (Simulating imbalanced data with a Gamma distribution)
 dists = np.random.gamma(2, 2, 100_000)
