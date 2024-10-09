@@ -81,7 +81,7 @@ The configurable parameters are as follows:
 
 - `n_bins`: Number of bins to split into
 - `revenue_fn`: Revenue per customer, function of bin id (starting from 0), usually constant.
-- `cost_fn`: Cost per customer, function of bin id (starting from 0), usally incremental for different over channels
+- `cost_fn`: Cost per customer, function of bin id (starting from 0), usally incremental over channels
 - `penalty_factor`: Penalty factor for exploration, `> 0` value if your search is stuck in a local minimum
 - `min_samples`: Minimum number of samples in a group
 - `global_search`: Whether to use the differential evolution or the quantile based algorithm
