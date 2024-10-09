@@ -61,7 +61,7 @@ cost_fn = lambda ix: 2 * ix
 # Find optimal bins with custom revenue and cost functions
 result = find_optimal_bins(df['propensity'], df['y'], n_bins=10, 
                         revenue_fn=revenue_fn,
-                        cost_fn=cost_fn,
+                        cost_fn=cost_fn, penalty_factor=0,
                         min_samples=10, global_search=True)
 best_n_bins, best_cutoffs, max_revenue = result
 
@@ -73,32 +73,54 @@ print(f"Best cutoffs: {best_cutoffs}")
 print(f"Maximum Revenue: {max_revenue}")
 ```
 
+The first two parameters are:
+- `propensities`: Machine Learning / AI model output probabilities
+- `predictions`: Binary outcome on customer activity (or) purchase
+
+The configurable parameters are as follows:
+
+- `n_bins`: Number of bins to split into
+- `revenue_fn`: Revenue per customer, function of bin id (starting from 0), usually constant.
+- `cost_fn`: Cost per customer, function of bin id (starting from 0), usally incremental for different over channels
+- `penalty_factor`: Penalty factor for exploration, `> 0` value if your search is stuck in a local minimum
+- `min_samples`: Minimum number of samples in a group
+- `global_search`: Whether to use the differential evolution or the quantile based algorithm
+
+**NOTE**: All examples here use `global_search=True` as the quantile-based method (`global_search=False`) is identical to the Percentile split. 
+
 ## Performance
 
 Tests were conducted to compare the performance of various customer segmentation strategies using the generated propensity groups. 
 
-**NOTE**: The Optimized Global split is used here, as the quantile-based method is identical to the Percentile split.
 
 ### Key Statistics
 
 Here are some key statistics comparing the methods with the graphical and aggregate analysis:
 
-| Statistic                                  | Uniform         | Percentile      | Optimized        |
-|--------------------------------------------|------------------|-----------------|------------------|
-| Overall Conversion Rate                    | 19.98 %          | 19.98 %         | 19.98 %          |
-| Lowest Conversion Rate (Value)             | 6.3%           | 3.8%         | 9.1%          |
-| Lowest Conversion Rate (# Customers)       | 1673             | 383             | 4154             |
-| Best Conversion Rate (Value)               | 0.97479%         | 0.5092%         | 1.0000%          |
-| Best Conversion Rate (# Customers)         | 116              | 5092            | 63               |
-| Total Revenue                              | -$18,146         | -$460,070       | $172,844         |
-| Worst Total Revenue Group                  | $-9,243 (Group 9)| $-8,028 (Group 8)| $-4,724 (Group 9)|
-| Best Total Revenue Group                   | $9,243 (Group 9) | $-4,724 (Group 9)| $15,230 (Group 6)|
-| Average Cost / Customer                    | -$0.165          | -$4.6007        | $1,577.85        |
-| Average Revenue / Customer                 | -$0.104965       | -$4.6007        | $1,577.85        |
+| **Metric**                         | **Uniform**                         | **Percentile**                     | **Optimized**                     |
+|------------------------------------|-------------------------------------|------------------------------------|-----------------------------------|
+| **Overall Conversion Rate (%)**    | 19.98%                              | 19.98%                             | 19.98%                            |
+| **Lowest Conversion Rate (%)**     | 6.32% (0.0-0.1)<br>[1,673/26,485]   | 3.83% (0.0-0.0535)<br>[383/10,000] | **9.12%** (0.0-0.154)<br>[4,154/45,550] |
+| **Highest Conversion Rate (%)**    | 97.48% (0.9-1.0)<br>[116/119]       | 50.92% (0.39-1.0)<br>[5,092/10,000] | **100%** (0.965-1.0)<br>[63/63]        |
+| **Overall Total Revenue ($)**      | $70,280                             | -$542,580                          | **$216,448**                       |
+| **Lowest Total Revenue ($)**       | -$2,780 (0.0-0.1)<br>[1,673/26,485] | -$85,100 (0.0-0.0535)<br>[383/10,000] | **$33,520** (0.0-0.154)<br>[4,154/45,550] |
+| **Highest Total Revenue ($)**      | $1,100 (0.9-1.0)<br>[116/119]       | -$47,240 (0.39-1.0)<br>[5,092/10,000] | **$62,340** (0.264-0.406)<br>[5,540/17,310] |
+| **Overall Revenue per Customer ($)**| $0.53                               | -$2.71                             | **$0.94**                          |
+| **Lowest Revenue per Customer ($)** | -$0.105 (0.0-0.1)<br>[1,673/26,485] | -$8.028 (0.3-0.39)<br>[3,324/10,000] | **$0.736** (0.0-0.154)<br>[4,154/45,550]  |
+| **Highest Revenue per Customer ($)**| $9.244 (0.9-1.0)<br>[116/119]       | -$4.724 (0.39-1.0)<br>[5,092/10,000] | **$15.23** (0.915-0.965)<br>[38/39]     |
 
-The Optimized model significantly outperforms both the Uniform and Percentile methods across all key metrics, particularly in overall conversion rates and total revenue. These improvements underscore the effectiveness of the optimized segmentation approach in identifying and targeting high-value customers.
+The table below presents key metrics for each segmentation strategy. Each cell contains the following information:
+- **Metric**: Value of the metric
+- **Band**: Range of propensity scores associated with that group formatted as (lower - upper)
+- **Customer Conversion**: Number of customers that converted out of the total customers in the group, formatted as [converted/total]
+
+The optimized model significantly outperforms both the uniform and percentile segmentation strategies across all metrics. It exhibits the highest lowest conversion rate, showing that even the least effective groups are yielding a better performance than their counterparts in the other strategies. Additionally, the optimized model leads to a substantial increase in total revenue and revenue per customer, demonstrating its effectiveness in identifying high-value customer segments. This results in a more efficient targeting strategy, ultimately enhancing overall business revenue.
 
 Granular statistics across bands for each of the strategies can be found in the `examples` directory.
+
+### Conversion Plots
+
+Here are plots showing the distribution of conversion rates and the revenue / customer across the various methods.
 
 The conversion rates are represented through the following visualizations:
 - **Bar Chart**: Displays the number of customers in each segment.
@@ -107,17 +129,20 @@ The conversion rates are represented through the following visualizations:
 
 Additionally, the **Revenue per Customer** is indicated above each bar in the bar chart, providing a clear view of the economic impact of each segment.
 
+**Optimization Algorithm**
+
+![Optimized Split](examples/analyses/optimized_plot.png)
+*Optimized Segmentation Results*
+
+**Uniform and Percentile Based old methods**
+
 ![Uniform Split](examples/analyses/uniform_plot.png)
 *Uniform Segmentation Results*
 
 ![Percentile Split](examples/analyses/percentile_plot.png)
 *Percentile Segmentation Results*
 
-![Optimized Split](examples/analyses/optimized_plot.png)
-*Optimized Segmentation Results*
-
-
-This method results in a more effective targeting strategy, enabling businesses to maximize their revenue potential while ensuring that high-value customers are efficiently identified. By balancing customer volume with targeted conversion rates, the optimized approach surpasses traditional methods, yielding superior results in both overall conversions and revenue generation.
+This novel optimization method results in a more effective targeting strategy, enabling businesses to maximize their revenue potential while ensuring that high-value customers are efficiently identified. By balancing customer volume with targeted conversion rates, the optimized approach surpasses traditional methods, yielding superior results in both overall conversions and revenue generation.
 
 ## Repository
 
@@ -156,20 +181,23 @@ The repository is organized as follows:
 ### Installation
 
 1. Clone this repository to your local machine:
-   ```bash
-   git clone https://github.com/astronights/smart-segment.git
-   cd smart-segment
-   ```
+
+```bash
+git clone https://github.com/astronights/smart-segment.git
+cd smart-segment
+```
 
 2. Install the required dependencies:
-    ```bash
-    pip install -r requirements.txt
-    ```
+
+```bash
+pip install -r requirements.txt
+```
 
 3. To install the package in your Python environment:
-    ```bash
-    pip install .
-    ```
+    
+```bash
+pip install .
+```
 
 ### Running Tests
 
@@ -177,15 +205,15 @@ To ensure that everything works as expected, you can run the test suite using `p
 
 1. Install pytest if you don't have it already:
 
-    ```
-    pip install pytest
-    ```
+```bash
+pip install pytest
+```
 
 2. Run the tests:
 
-    ```bash
-    pytest
-    ```
+```bash
+pytest
+```
 
 This will execute the test files located in the tests directory and validate that the segmentation tool is functioning correctly.
 
