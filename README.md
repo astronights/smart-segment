@@ -135,15 +135,15 @@ Additionally, the **Revenue per Customer** is indicated above each bar in the ba
 
 **Optimization Algorithm**
 
-![Optimized Split](https://github.com/astronights/smart-segment/blob/main/examples/analyses/optimized_plot.png?raw=true)
+![Optimized Split](https://raw.githubusercontent.com/astronights/smart-segment/main/examples/analyses/optimized_plot.png)
 *Optimized Segmentation Results*
 
 **Uniform and Percentile Based old methods**
 
-![Uniform Split](https://github.com/astronights/smart-segment/blob/main/examples/analyses/uniform_plot.png?raw=true)
+![Uniform Split](https://raw.githubusercontent.com/astronights/smart-segment/main/examples/analyses/uniform_plot.png)
 *Uniform Segmentation Results*
 
-![Percentile Split](https://github.com/astronights/smart-segment/blob/main/examples/analyses/percentile_plot.png?raw=true)
+![Percentile Split](https://raw.githubusercontent.com/astronights/smart-segment/main/examples/analyses/percentile_plot.png)
 *Percentile Segmentation Results*
 
 This novel optimization method results in a more effective targeting strategy, enabling businesses to maximize their revenue potential while ensuring that high-value customers are efficiently identified. By balancing customer volume with targeted conversion rates, the optimized approach surpasses traditional methods, yielding superior results in both overall conversions and revenue generation.
