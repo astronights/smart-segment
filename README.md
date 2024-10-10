@@ -40,7 +40,7 @@ Smart Segment improves upon these methods by leveraging historical conversion da
 
 - The optimization is run simulating model propensities with a Gamma distribution to reflect typically skewed data. 
 - A constant revenue function is used to represent the median customer revenue across segments.
-- A increasing function (dependent on the split group) is used as the cost function to indicate the varying acquisition costs from generic to specific marketing efforts.
+- A increasing cost function (dependent on the split group) to indicate the varying acquisition costs from generic to specific marketing efforts.
 
 This model calculates the optimal segments significantly outperforming conventional approaches across relevant criteria of conversion rates and revenue.
 
