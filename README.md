@@ -1,34 +1,82 @@
-# Optimization-Based Customer Segmentation
+# Smart Segment - Optimization-Based Customer Segmentation
 
-This repository provides an optimization-based segmentation tool for business intelligence, enabling data-driven segmentation of customers for targeted marketing efforts. The algorithm uses customer propensities (predicted probabilities of an event) and historical data (actual outcomes) to optimize the segmentation process, maximizing expected revenue while accounting for costs and penalties. This dynamic approach leads to more effective and fine-tuned segments compared to naive or percentile-based methods.
+Smart Segment is an optimization-driven segmentation tool designed to enhance business intelligence. It allows for data-driven customer segmentation to improve targeted marketing efforts. By leveraging customer propensities (predicted probabilities with data science) and historical data (actual outcomes), it optimizes segmentation to maximize expected revenue while accounting for costs and penalties. This approach leads to more effective, fine-tuned segments than traditional methods such as naive or percentile-based segmentation.
 
 ## Key Features
-- **Optimized Segmentation**: The algorithm dynamically adjusts segmentation boundaries to maximize expected revenue, based on conversion rates and customer acquisition costs.
-- **Customizable Functions**: Users can define their own revenue and cost functions depending on business needs.
-- **Adaptable to Different Data**: The tool adapts to the actual distribution of customer propensities and conversion behaviors, ensuring resource allocation to the most promising segments.
-- **Merge Small Bins**: Automatically merges bins that don't meet a minimum sample size, leading to more robust segmentation.
+- **Optimized Segmentation**: Dynamically adjusts segmentation boundaries to maximize expected revenue, taking into account conversion rates and customer acquisition costs.
+- **Customizable Functions**: Users can define their own revenue and cost functions based on their business needs.
+- **Data-Driven Adaptation**: Automatically adjusts to the actual distribution of customer propensities and conversion behaviors to allocate resources to the most promising segments.
+- **Merges Small Bins**: Merges bins that don't meet a minimum sample size, producing more robust and reliable segments.
   
-This segmentation tool is particularly useful for business intelligence teams seeking to enhance the return on investment (ROI) for marketing campaigns by focusing on high-value segments.
+Smart Segment is particularly useful for business intelligence teams seeking to enhance marketing ROI by focusing on high-value customer segments. This can also be used as a highly effective tool for Post Campaign / Marketing Campaign Analysis.
+
+## How Things Work
+
+Business teams often segment customers to identify conversion patterns and apply different marketing strategies to distinct groups.
+
+**Revenue Calculation**
+
+Total revenue for each segment is calculated as the sum of revenue from converted customers minus the total acquisition costs for targeting all customers in that segment. While the tool assumes a constant revenue per conversion (which can be customized), acquisition costs vary by segment, reflecting the real-world scenario where higher costs are incurred for more focused marketing.
+
+**Customer Propensities**
+
+Machine learning models (binary classifiers, for example) predict customer conversion probabilities (propensities) for products or services. Business teams often prioritize customers based on these predicted probabilities rather than binary outcomes, using propensities to target marketing efforts.
+
+**Segmentation Strategies**
+
+Customers are segmented based on their propensities, and different strategies are applied to various segments. For example:
+
+- Low Propensity Groups: Generic, low-cost marketing strategies.
+- High Propensity Groups: Targeted, higher-cost strategies designed to guarantee conversions.
+
+Traditional segmentation strategies typically fall into one of two categories:
+
+- Uniform: Propensities are split into equal intervals (e.g., 10 bands of 0.1).
+- Percentile: Propensities are split based on percentiles.
+
+Smart Segment improves upon these methods by leveraging historical conversion data to optimize segmentation, maximizing revenue while minimizing acquisition costs and balancing segment sizes.
+
+### Optimization Approach
+
+- The optimization is run simulating model propensities with a Gamma distribution to reflect typically skewed data. 
+- A constant revenue function is used to represent the median customer revenue across segments.
+- A increasing function (dependent on the split group) is used as the cost function to indicate the varying acquisition costs from generic to specific marketing efforts.
+
+This model calculates the optimal segments significantly outperforming conventional approaches across relevant criteria of conversion rates and revenue.
+
+
+| **Metric**            | **Uniform**        | **Percentile**     | **Smart Segment (Optimized)** |
+|-----------------------|--------------------|--------------------|---------------------|
+| **Group 1**           | (-0.00058, 0.1]    | (-0.00058, 0.0535] | (0.0, 0.154]        |
+| **Group 2**           | (0.1, 0.2]         | (0.0535, 0.0829]   | (0.154, 0.264]      |
+| **Group 3**           | (0.2, 0.3]         | (0.0829, 0.11]     | (0.264, 0.406]      |
+| **Group 4**           | (0.3, 0.4]         | (0.11, 0.138]      | (0.406, 0.612]      |
+| **Group 5**           | (0.4, 0.5]         | (0.138, 0.168]     | (0.612, 0.898]      |
+| **Group 6**           | (0.5, 0.6]         | (0.168, 0.202]     | (0.898, 0.915]      |
+| **Group 7**           | (0.6, 0.7]         | (0.202, 0.244]     | (0.915, 0.965]      |
+| **Group 8**           | (0.7, 0.8]         | (0.244, 0.3]       | (0.965, 1.0]        |
+| **Group 9**           | (0.8, 0.9]         | (0.3, 0.39]        |        |
+| **Group 10**          | (0.9, 1.0]         | (0.39, 1.0]        |        |
+| **Best Conversion Rate** | 97.48% (0.9-1.0) | 50.92% (0.39-1.0)  | **100%** (0.965-1.0)    |
+| **Total Revenue ($)** | $70,280            | -$542,580          | **$216,448**            |
+| **Best Revenue / Customer**| $9.24 (0.9-1.0)    | -$4.72 (0.39-1.0)  | **$15.23** (0.915-0.965)|
+
+More metrics (such as group sizes) can be found in the **Performance** section below with granular statistics in the `examples` directory.
+
 
 ## Advantages of Optimization Algorithm Segmentation
 
-### 1. **Higher Conversion Rates in Key Segments**
-   - The algorithm identifies high-potential segments with significantly higher conversion rates. It balances conversion rates effectively across segments, unlike naive or percentile methods that might overlook smaller but valuable segments.
+- **Higher Conversion Rates**: Identifies high-potential segments with significantly higher conversion rates compared to naive or percentile methods.
 
-### 2. **Fine-Grained Segmentation**
-   - Provides finely tuned segments based on customer behavior, enabling more precise and dynamic targeting. This allows for personalized marketing strategies that can adapt to changing customer behavior.
+- **Fine-Grained Segmentation**: Enables more precise and dynamic customer segmentation based on behavior, supporting personalized marketing strategies.
 
-### 3. **Dynamic Response to Customer Behavior**
-   - The algorithm adapts to the actual distribution of customer propensities and conversion behaviors. It adjusts in real-time, unlike fixed-interval methods which may misrepresent certain customer groups.
+- **Dynamic Response**: Adjusts in real-time to customer behavior, providing more accurate segmentation than fixed-interval methods.
 
-### 4. **Mitigation of Underperformance in Small Bins**
-   - Bins with insufficient samples are automatically merged, ensuring that small bins don’t distort insights or lead to poor resource allocation in marketing campaigns.
+- **Mitigates Underperformance in Small Bins**: Automatically merges bins with insufficient samples, preventing small bins from skewing insights.
 
-### 5. **Holistic Revenue Consideration**
-   - The algorithm factors in both conversion rates and acquisition costs, aiming to maximize net revenue rather than focusing solely on conversion rates.
+-  **Maximizes Net Revenue**: Optimizes both conversion rates and acquisition costs, focusing on total revenue generation.
 
-### 6. **Strategic Focus on High-Value Segments**
-   - By optimizing segmentation based on expected revenue, businesses can prioritize high-value customer segments, leading to improved marketing ROI and a strategic focus on growth areas.
+- **Strategic Focus on High-Value Segments**: Prioritizes high-value customer segments for enhanced marketing ROI.
 
 ## Installation
 
@@ -81,7 +129,7 @@ The configurable parameters are as follows:
 
 - `n_bins`: Number of bins to split into
 - `revenue_fn`: Revenue per customer, function of bin id (starting from 0), usually constant.
-- `cost_fn`: Cost per customer, function of bin id (starting from 0), usally incremental over channels
+- `cost_fn`: Cost per customer, function of bin id (starting from 0), usally incremental over segments.
 - `penalty_factor`: Penalty factor for exploration, `> 0` value if your search is stuck in a local minimum
 - `min_samples`: Minimum number of samples in a group
 - `global_search`: Whether to use the differential evolution or the quantile based algorithm
@@ -94,8 +142,8 @@ Tests were conducted to compare the performance of various customer segmentation
 
 The peformances of this optimized method are compared with the conventional methods used:
 
-- **Uniform**: Implemented with `pd.cut`
-- **Percentile**: Implemented with `pd.qcut`
+- **Uniform**: Implemented with `pd.cut` with `10` bins.
+- **Percentile**: Implemented with `pd.qcut` with `10` quantiles.
 
 ### Key Statistics
 
@@ -118,7 +166,11 @@ The table below presents key metrics for each segmentation strategy. Each cell c
 - **Band**: Range of propensity scores associated with that group formatted as (lower - upper)
 - **Customer Conversion**: Number of customers that converted out of the total customers in the group, formatted as [converted/total]
 
-The optimized model significantly outperforms both the uniform and percentile segmentation strategies across all metrics. It exhibits the highest lowest conversion rate, showing that even the least effective groups are yielding a better performance than their counterparts in the other strategies. Additionally, the optimized model leads to a substantial increase in total revenue and revenue per customer, demonstrating its effectiveness in identifying high-value customer segments. This results in a more efficient targeting strategy, ultimately enhancing overall business revenue.
+The optimized model significantly outperforms both the uniform and percentile segmentation strategies across all metrics. 
+- It exhibits the highest lowest conversion rate, showing that even the least effective groups are yielding a better performance than their counterparts in the other strategies. 
+- The optimized model leads to a substantial increase in total revenue and revenue per customer, demonstrating its effectiveness in identifying high-value customer segments. 
+
+This results in a more efficient targeting strategy, ultimately enhancing overall business revenue.
 
 Granular statistics across bands for each of the strategies can be found in the `examples` directory.
 

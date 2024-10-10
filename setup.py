@@ -7,10 +7,11 @@ long_description = (this_directory / "README.md").read_text()
 
 setup(
     name='smart-segment',
-    version='0.1.6',
+    version='0.1.7',
     author='Shubhankar Agrawal',
     author_email='shubhankar.a31@gmail.com',
     description='An optimization-based customer segmentation tool for business intelligence',
+    keywords='customer segmentation, optimization, data science, marketing, ROI, machine learning',
     long_description=long_description,
     long_description_content_type='text/markdown',  # To support markdown rendering on PyPI
     url='https://github.com/astronights/smart-segment', 
