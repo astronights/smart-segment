@@ -32,7 +32,7 @@ Customers are segmented based on their propensities, and different strategies ar
 Traditional segmentation strategies typically fall into one of two categories:
 
 - Uniform: Propensities are split into equal intervals (e.g., 10 bands of 0.1).
-- Percentile: Propensities are split based on percentiles.
+- Percentile: Propensities are split based on percentiles (e.g. 10 quantiles).
 
 Smart Segment improves upon these methods by leveraging historical conversion data to optimize segmentation, maximizing revenue while minimizing acquisition costs and balancing segment sizes.
 
